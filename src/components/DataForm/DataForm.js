@@ -1,19 +1,19 @@
-import React from "react";
-import { useState } from "react";
+import React from 'react';
+import {useState} from 'react';
 
 const DataForm = () => {
   const [data, setData] = useState([{}]);
-  const [name, setName] = useState("");
-  const [type, setType] = useState("vcard-plus");
+  const [name, setName] = useState('');
+  const [type, setType] = useState('vcard-plus');
   const [qrData, setQrData] = useState({
-    name: "",
-    design: { primary: "#000000", secondary: "#000000" },
+    name: '',
+    design: {primary: '#000000', secondary: '#000000'},
   });
   const [qrDataDesign, setQrDataDesign] = useState({
-    primary: "#000000",
-    secondary: "#000000",
+    primary: '#000000',
+    secondary: '#000000',
   });
-  const [qrDataName, setQrDataName] = useState("");
+  const [qrDataName, setQrDataName] = useState('');
 
   const nameMaxChars = 100;
   const qrDataNameMaxChars = 70;
@@ -42,10 +42,10 @@ const DataForm = () => {
     console.log(data);
 
     const options = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        "API-KEY": QRFY_API_KEY,
+        'Content-Type': 'application/json',
+        'API-KEY': QRFY_API_KEY,
       },
       body: JSON.stringify({
         qrs: data,
@@ -53,11 +53,11 @@ const DataForm = () => {
     };
 
     try {
-      const response = await fetch("https://qrfy.com/api/public/qrs", options);
+      const response = await fetch('https://qrfy.com/api/public/qrs', options);
       const jsonData = await response.json();
       console.log(jsonData);
     } catch (error) {
-      console.error("Error fetching data:", error.message);
+      console.error('Error fetching data:', error.message);
     }
   };
 
