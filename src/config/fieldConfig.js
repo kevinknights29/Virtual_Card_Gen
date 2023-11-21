@@ -17,8 +17,17 @@ export const fieldConfig = {
     },
     {
       name: 'design',
-      type: 'text',
-      validations: {required: 'Design is required'},
+      type: 'object',
+      fields: {
+        primary: {
+          type: 'color',
+          validations: {required: 'Primary color is required'},
+        },
+        secondary: {
+          type: 'color',
+          validations: {required: 'Secondary color is required'},
+        },
+      },
     },
     {
       name: 'lastName',
