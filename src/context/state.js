@@ -17,9 +17,15 @@ export const AppStateContext = createContext();
  *  component.
  */
 export function AppProvider({children}) {
-  const value = useState({});
+  const initialState = {
+    data: {}, // Ensure data is initialized as an empty object
+    // Add other initial state properties as needed
+  };
+
+  const [state, setState] = useState(initialState);
+
   return (
-    <AppStateContext.Provider value={value}>
+    <AppStateContext.Provider value={[state, setState]}>
       {children}
     </AppStateContext.Provider>
   );

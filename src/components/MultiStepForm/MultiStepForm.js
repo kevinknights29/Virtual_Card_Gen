@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {useForm, FormProvider} from 'react-hook-form';
 import {Stepper} from '../Stepper/Stepper';
 import {Setup} from '../Setup/Setup';
 import {Data} from '../Data/Data';
 import {Miscellaneous} from '../Miscellaneous/Miscellaneous';
+import {AppStateContext} from '../../context/state';
 
 
 /**
@@ -15,11 +16,21 @@ export const MultiStepForm = () => {
   const methods = useForm();
   const [step, setStep] = useState(1);
   const [type, setType] = useState('');
+  const [state] = useContext(AppStateContext);
+
+  // Function to handle final data submission
+  const submitData = (formData) => {
+    const apiData = {
+      ...formData,
+      data: state.data,
+    };
+    console.info('Final Submission Data:', apiData);
+    // Submit apiData to the server or handle it as needed
+  };
 
   const onSubmit = (data) => {
     if (step === 3) {
-      console.log('Final Data:', data);
-      // Handle final submission
+      submitData(data); // Call submitData on the final step
     } else {
       if (step === 1) {
         setType(data.type);
