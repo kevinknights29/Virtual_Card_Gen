@@ -1,19 +1,16 @@
 import React from 'react';
-import {useLocation} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 /**
  * Renders a stepper component that displays a navigation bar with steps.
- * Each step is represented by a link that can be active or disabled
- *  based on the current location.
+ * Each step is represented by a span that can be active or disabled
+ * based on the current step.
+ * @param {number} currentStep - The current step of the form.
  * @return {JSX.Element} The stepper component.
  */
-export const Stepper = () => {
-  const location = useLocation();
-
-  const getLinkClass = (path) => {
-    return (
-      'nav-link disabled ' + (path === location.pathname ? 'active' : undefined)
-    );
+export const Stepper = ({currentStep}) => {
+  const getStepClass = (step) => {
+    return 'nav-link ' + (step === currentStep ? 'active' : 'disabled');
   };
 
   return (
@@ -21,19 +18,23 @@ export const Stepper = () => {
       <div className="collapse navbar-collapse">
         <ol className="navbar-nav">
           <li className="step nav-item">
-            <span className={getLinkClass('/')}>Contact</span>
+            <span className={getStepClass(1)}>Setup</span>
           </li>
           <li className="step nav-item">
-            <span className={getLinkClass('/education')}>Education</span>
+            <span className={getStepClass(2)}>Data</span>
           </li>
           <li className="step nav-item">
-            <span className={getLinkClass('/about')}>About</span>
+            <span className={getStepClass(3)}>Miscellaneous</span>
           </li>
           <li className="step nav-item">
-            <span className={getLinkClass('/confirm')}>Confirm</span>
+            <span className={getStepClass(4)}>Confirm</span>
           </li>
         </ol>
       </div>
     </nav>
   );
+};
+
+Stepper.propTypes = {
+  currentStep: PropTypes.number.isRequired,
 };
