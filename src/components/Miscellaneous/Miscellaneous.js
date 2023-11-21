@@ -21,11 +21,12 @@ export const Miscellaneous = () => {
   return (
     <div>
       <label htmlFor="style">Style</label>
+      {/* TODO: Add defaultValue {} */}
       <input
         {...register('style')}
         value={state.style || ''}
         onChange={handleMiscellaneousChange}
-        type="text"
+        type="object"
       />
 
       <label htmlFor="accessPassword">Access Password</label>

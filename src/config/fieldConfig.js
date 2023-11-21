@@ -1,4 +1,5 @@
 export const fieldConfig = {
+  // TODO: Support array of objects
   'vcard-plus': [
     {
       name: 'address',
@@ -44,6 +45,7 @@ export const fieldConfig = {
         },
       },
       validations: {},
+      defaultValues: {},
     },
     {
       name: 'phone',
@@ -63,6 +65,7 @@ export const fieldConfig = {
         },
       },
       validations: {},
+      defaultValues: [{}],
     },
     {
       name: 'email',
@@ -78,6 +81,7 @@ export const fieldConfig = {
         },
       },
       validations: {},
+      defaultValues: [{}],
     },
     {
       name: 'design',
@@ -128,6 +132,7 @@ export const fieldConfig = {
         },
       },
       validations: {},
+      defaultValues: [{}],
     },
     {
       name: 'preview',
@@ -154,6 +159,7 @@ export const fieldConfig = {
         },
       },
       validations: {},
+      defaultValues: [{}],
     },
     {name: 'summary', type: 'textarea', validations: {maxLength: 200}},
     {name: 'title', type: 'text', validations: {maxLength: 50}},
@@ -171,6 +177,7 @@ export const fieldConfig = {
         },
       },
       validations: {},
+      defaultValues: [{}],
     }, // Assuming this is a URL
   ],
   // Template for other types
