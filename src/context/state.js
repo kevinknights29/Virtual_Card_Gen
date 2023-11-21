@@ -1,6 +1,10 @@
 import React, {createContext, useContext, useState} from 'react';
 import ProptTypes from 'prop-types';
 
+/**
+ * Context for the application state.
+ * @type {import("react").Context}
+ */
 export const AppStateContext = createContext();
 
 
@@ -38,5 +42,3 @@ export function useAppState() {
   }
   return context;
 }
-
-
