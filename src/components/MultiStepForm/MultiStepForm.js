@@ -6,6 +6,7 @@ import {Data} from '../Data/Data';
 import {Miscellaneous} from '../Miscellaneous/Miscellaneous';
 import {AppStateContext} from '../../context/state';
 import {fieldConfig} from '../../config/fieldConfig';
+import useSubmitData from '../../hooks/useSubmitData';
 
 
 /**
@@ -18,11 +19,18 @@ export const MultiStepForm = () => {
   const [step, setStep] = useState(1);
   const [type, setType] = useState('');
   const [state] = useContext(AppStateContext);
+  const {submitData, error} = useSubmitData();
 
   // Function to handle final data submission
   const processFormData = (formData) => {
     const apiData = {...formData};
     const dataFields = fieldConfig['vcard-plus'].map((field) => field.name);
+
+    // Adjust the names back to the original
+    if (apiData.data_name !== undefined) {
+      apiData.data.name = apiData.data_name;
+      delete apiData.data.data_name;
+    }
 
     apiData.data = {};
     dataFields.forEach((fieldName) => {
@@ -35,10 +43,18 @@ export const MultiStepForm = () => {
     return apiData;
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (step === 3) {
       const finalData = processFormData({...data, ...state});
       console.info('Processed Final Data:', finalData);
+      await submitData(finalData); // Call the submitData function from the hook
+      if (!error) {
+        // Handle successful submission, e.g., navigate to a success page
+        console.log('Success!');
+      } else {
+        // Handle submission error, e.g., display error message
+        console.error(error.message);
+      }
     } else {
       if (step === 1) {
         setType(data.type);
