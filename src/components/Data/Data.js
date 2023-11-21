@@ -19,29 +19,10 @@ export const Data = () => {
 
   const handleDataChange = (e) => {
     const {name, value} = e.target;
-    if (name.includes('.')) {
-      // Handle nested fields (e.g., design.primary)
-      const [parentKey, childKey] = name.split('.');
-      setState((prevState) => ({
-        ...prevState,
-        data: {
-          ...prevState.data,
-          [parentKey]: {
-            ...prevState.data[parentKey],
-            [childKey]: value,
-          },
-        },
-      }));
-    } else {
-      // Handle top-level fields
-      setState((prevState) => ({
-        ...prevState,
-        data: {
-          ...prevState.data,
-          [name]: value,
-        },
-      }));
-    }
+    setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   return (

@@ -5,6 +5,7 @@ import {Setup} from '../Setup/Setup';
 import {Data} from '../Data/Data';
 import {Miscellaneous} from '../Miscellaneous/Miscellaneous';
 import {AppStateContext} from '../../context/state';
+import {fieldConfig} from '../../config/fieldConfig';
 
 
 /**
@@ -19,18 +20,25 @@ export const MultiStepForm = () => {
   const [state] = useContext(AppStateContext);
 
   // Function to handle final data submission
-  const submitData = (formData) => {
-    const apiData = {
-      ...formData,
-      data: state.data,
-    };
-    console.info('Final Submission Data:', apiData);
-    // Submit apiData to the server or handle it as needed
+  const processFormData = (formData) => {
+    const apiData = {...formData};
+    const dataFields = fieldConfig['vcard-plus'].map((field) => field.name);
+
+    apiData.data = {};
+    dataFields.forEach((fieldName) => {
+      if (apiData[fieldName] !== undefined) {
+        apiData.data[fieldName] = apiData[fieldName];
+        delete apiData[fieldName];
+      }
+    });
+
+    return apiData;
   };
 
   const onSubmit = (data) => {
     if (step === 3) {
-      submitData(data); // Call submitData on the final step
+      const finalData = processFormData({...data, ...state});
+      console.info('Processed Final Data:', finalData);
     } else {
       if (step === 1) {
         setType(data.type);
